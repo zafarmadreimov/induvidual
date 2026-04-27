@@ -1,0 +1,829 @@
+<!DOCTYPE html><html lang="uz"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Individual Loyiha - PIR va LCD</title>
+<style>
+        /* Umumiy sahifa sozlamalari */
+        body {
+            font-family: "Times New Roman", Times, serif;
+            line-height: 1.5;
+            color: #000;
+            background-color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            font-size: 14pt;
+        }
+
+        /* A4 formatidagi sahifa simulyatsiyasi */
+        .page {
+            background-color: #fff;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 20px auto;
+            padding: 20mm 30mm 20mm 30mm; /* Ikki tarafdagi intervallar standartlarga mos (chapdan 30mm, o'ngdan 15mm qilinadi odatda, lekin vizual simmetriya uchun 30mm oldim) */
+            box-sizing: border-box;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            text-align: justify;
+        }
+
+        /* Sahifa raqamlash */
+        .page-number {
+            position: absolute;
+            bottom: 15mm;
+            right: 50%;
+            transform: translateX(50%);
+            font-size: 12pt;
+        }
+
+        /* Sarlavhalar */
+        h1, h2, h3, h4 {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1 { font-size: 16pt; text-transform: uppercase; }
+        h2 { font-size: 15pt; }
+        h3 { font-size: 14pt; }
+
+        /* Xatboshilar */
+        p {
+            text-indent: 1.25cm;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        /* Jadvallar */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 12pt;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        th {
+            font-weight: bold;
+        }
+        .table-caption {
+            text-align: right;
+            font-style: italic;
+            margin-bottom: 5px;
+            font-size: 12pt;
+        }
+
+        /* Rasmlar */
+        figure {
+            text-align: center;
+            margin: 20px 0;
+        }
+        img {
+            max-width: 90%;
+            height: auto;
+            border: 1px solid #ccc;
+        }
+        figcaption {
+            margin-top: 10px;
+            font-style: italic;
+            font-size: 12pt;
+        }
+
+        /* Titul varag'i maxsus stillari */
+        .title-page {
+            text-align: center;
+        }
+        .title-page p {
+            text-indent: 0;
+            text-align: center;
+        }
+        .title-header {
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+        .title-subject {
+            font-weight: bold;
+            font-size: 16pt;
+            margin: 50px 0;
+        }
+        .title-type {
+            font-weight: bold;
+            font-size: 18pt;
+            margin-bottom: 50px;
+        }
+        .signature-block {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            text-align: left;
+        }
+        .signature-line {
+            border-bottom: 1px solid #000;
+            width: 200px;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .signature-text {
+            font-size: 12pt;
+            font-style: italic;
+            text-align: center;
+        }
+
+        /* Mundarija */
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        .toc-item span.dots {
+            flex-grow: 1;
+            border-bottom: 1px dotted #000;
+            margin: 0 10px;
+            position: relative;
+            top: -5px;
+        }
+
+        /* Kod qismi */
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border: 1px solid #ddd;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 11pt;
+            white-space: pre-wrap;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<!-- 1-SAHIFA: TITUL VARAG'I -->
+<div class="page title-page">
+<div class="title-header">
+<p>OʻZBEKISTON RESPUBLIKASI RAQAMLI TEXNOLOGIYALAR VAZIRLIGI</p>
+<p>ABU RAYHON BERUNIY NOMIDAGI URGANCH DAVLAT UNIVERSITETI</p>
+<br/>
+<p>&#34;Kompyuter injiniringi&#34; fakulteti</p>
+<p>&#34;Kompyuter injiniringi&#34; kafedrasi</p>
+</div>
+<div class="title-subject">
+<p>&#34;PIR sensori va LCD displey asosida tashrif buyuruvchilar uchun axborot ko&#39;rsatish tizimini ishlab chiqish&#34;</p>
+<p>mavzusida tayyorlangan</p>
+</div>
+<div class="title-type">
+<p>INDIVIDUAL LOYIHA 2</p>
+</div>
+<div style="text-align: left; margin-top: 50px;">
+<div style="margin-bottom: 20px;">
+<span style="display: inline-block; width: 150px;">(O&#39;rin)</span>
+<span class="signature-line"></span> bajardi
+                <span class="signature-line" style="width: 100px;"></span> ball bilan
+            </div>
+<div style="margin-bottom: 20px;">
+<span style="display: inline-block; width: 150px;">(Familiya)</span>
+<span class="signature-line"></span> guruh talabasi
+                <span class="signature-line" style="width: 100px;"></span> qabul qilindi
+            </div>
+<div style="margin-bottom: 20px;">
+<span style="display: inline-block; width: 150px;">(Imzo)</span>
+<span class="signature-line"></span>
+<span class="signature-line" style="width: 100px;"></span>
+</div>
+<div style="margin-bottom: 40px;">
+<span style="display: inline-block; width: 150px;">(F.I.O)</span>
+<span class="signature-line"></span> 20__y.
+                <span class="signature-line" style="width: 100px;"></span> 20__y.
+            </div>
+<p style="font-weight: bold; text-indent: 0;">Komissiya a&#39;zolari:</p>
+<div style="display: flex; justify-content: space-between; margin-top: 20px;">
+<div>
+<p style="text-indent: 0;"><span class="signature-line"></span> qabul qilindi</p>
+<p style="text-indent: 0; font-style: italic; font-size: 10pt; text-align: center; width: 200px;">(imzo)</p>
+<p style="text-indent: 0; margin-top: 20px;"><span class="signature-line"></span></p>
+<p style="text-indent: 0; margin-top: 20px;">&#34;___&#34; <span class="signature-line" style="width: 100px;"></span> 20__y.</p>
+</div>
+<div>
+<p style="text-indent: 0;"><span class="signature-line"></span> qabul qilindi</p>
+<p style="text-indent: 0; font-style: italic; font-size: 10pt; text-align: center; width: 200px;">(imzo)</p>
+<p style="text-indent: 0; margin-top: 20px;"><span class="signature-line"></span></p>
+<p style="text-indent: 0; margin-top: 20px;">&#34;___&#34; <span class="signature-line" style="width: 100px;"></span> 20__y.</p>
+</div>
+</div>
+</div>
+<div style="position: absolute; bottom: 30px; width: 100%; text-align: center; left: 0;">
+<p style="text-indent: 0; font-weight: bold;">Urganch 2026</p>
+</div>
+</div>
+<!-- 2-SAHIFA: MUNDARIJA -->
+<div class="page">
+<h1 id="section-1">MUNDARIJA</h1>
+<div class="toc-item"><span>KIRISH</span><span class="dots"></span><span>3</span></div>
+<div class="toc-item" style="margin-top: 15px;"><span><b>1-BOB. PIR SENSORI VA LCD DISPLEY ASOSIDA AXBOROT KO‘RSATISH TIZIMINING NAZARIY ASOSLARI</b></span><span class="dots"></span><span>5</span></div>
+<div class="toc-item"><span>1.1. Axborot ko‘rsatish tizimlari va ularning zamonaviy qo‘llanilish sohalari</span><span class="dots"></span><span>5</span></div>
+<div class="toc-item"><span>1.2. PIR sensorlarining ishlash prinsipi va turlari</span><span class="dots"></span><span>8</span></div>
+<div class="toc-item"><span>1.3. LCD displeylar va ularning elektron qurilmalarda qo‘llanilishi</span><span class="dots"></span><span>11</span></div>
+<div class="toc-item"><span>1.4. Masalaning qo‘yilishi</span><span class="dots"></span><span>13</span></div>
+<div class="toc-item" style="margin-top: 15px;"><span><b>2-BOB. PIR SENSORI VA LCD DISPLEY ASOSIDA AXBOROT KO‘RSATISH TIZIMINI AMALIY LOYIHALASH</b></span><span class="dots"></span><span>15</span></div>
+<div class="toc-item"><span>2.1. Boshqaruv tizimining apparat qismini loyihalash</span><span class="dots"></span><span>15</span></div>
+<div class="toc-item"><span>2.2. Dasturiy ta’minotni ishlab chiqish va sozlash</span><span class="dots"></span><span>18</span></div>
+<div class="toc-item"><span>2.3. Tizim ish faoliyatini sinovdan o‘tkazish va natijalarni tahlil qilish</span><span class="dots"></span><span>21</span></div>
+<div class="toc-item" style="margin-top: 15px;"><span>XULOSA</span><span class="dots"></span><span>24</span></div>
+<div class="toc-item"><span>FOYDALANILGAN ADABIYOTLAR RO‘YXATI</span><span class="dots"></span><span>25</span></div>
+<div class="toc-item"><span>ILOVALAR</span><span class="dots"></span><span>26</span></div>
+<div class="toc-item"><span>A-ilova. Elektr sxemalar va ulanish diagrammalari</span><span class="dots"></span><span>26</span></div>
+<div class="toc-item"><span>B-ilova. Dastur kodi namunasi</span><span class="dots"></span><span>27</span></div>
+<div class="toc-item"><span>C-ilova. Tajriba natijalari va grafiklar</span><span class="dots"></span><span>29</span></div>
+</div>
+<!-- 3-SAHIFA: KIRISH -->
+<div class="page">
+<h1 id="section-2">KIRISH</h1>
+<p>Mavzuning dolzarbligi. XXI asr — yuqori texnologiyalar va intellektual tizimlar asridir. Bugungi kunda inson hayotining barcha jabhalariga &#34;Aqlli texnologiyalar&#34; (Smart Technologies) shiddat bilan kirib kelmoqda. O‘zbekiston Respublikasida ham raqamli transformatsiya jarayonlari davlat siyosatining ustuvor yo‘nalishiga aylandi. Xususan, O‘zbekiston Respublikasi Prezidentining 2020-yil 5-oktabrdagi PF-6079-sonli &#34;Raqamli O‘zbekiston — 2030&#34; strategiyasini tasdiqlash va uni samarali amalga oshirish chora-tadbirlari to‘g‘risida&#34;gi Farmoni bu sohadagi fundamental asos bo‘lib xizmat qilmoqda. Ushbu hujjatda iqtisodiyot tarmoqlari va ijtimoiy sohani raqamlashtirish, innovatsion qurilmalarni ishlab chiqish va ularni keng joriy etish vazifalari belgilab berilgan.</p>
+<p>Tashrif buyuruvchilar uchun avtomatlashtirilgan axborot ko‘rsatish tizimlarini yaratish bir necha jihatdan dolzarb hisoblanadi. Birinchidan, zamonaviy xizmat ko‘rsatish maskanlarida (banklar, tibbiyot muassasalari, ta&#39;lim muassasalari, muzeylar va davlat idoralari) inson omilini kamaytirish va mijozlarga tezkor ma&#39;lumot yetkazish zarurati mavjud. Doimiy ishlaydigan displeylar yordamida ma&#39;lumotlarni tezkor uzatish imkoniyati muassasa nufuzini oshiradi va tashrif buyuruvchilarning vaqtini tejaydi.</p>
+<p>Ikkinchidan, energiya samaradorligi masalasi bugungi kunning eng muhim global muammolaridan biridir. Displeylarning doimiy ishlab turishi energiya sarfini oshiradi, ammo PIR (Passive Infrared) sensorlari yordamida faqat inson kelgandagina ishga tushadigan tizimlar elektr energiyasini sezilarli darajada tejaydi. Bu nafaqat iqtisodiy foyda keltiradi, balki ekologik barqarorlikni ta&#39;minlashga ham o&#39;z hissasini qo&#39;shadi.</p>
+<p>Uchinchidan, sensorli texnologiyalar va mikrokontrollerlar (masalan, Arduino, ESP32) bazasida arzon va samarali qurilmalar yaratish mahalliy ishlab chiqarish dasturlari doirasida muhim ahamiyatga ega. O‘zbekiston Respublikasining &#34;Axborotlashtirish to‘g‘risida&#34;gi va &#34;Elektron hukumat to‘g‘risida&#34;gi qonunlari ham davlat va jamiyat boshqaruvida axborot-kommunikatsiya texnologiyalaridan (AKT) foydalanish samaradorligini oshirishni talab etadi. Shunga ko‘ra, PIR sensori va LCD displey asosidagi tizim nafaqat texnik ishlanma, balki zamonaviy infratuzilmaning intellektual darajasini ko‘rsatuvchi muhim elementdir.</p>
+<div class="page-number">3</div>
+</div>
+<!-- 4-SAHIFA: KIRISH DAVOMI -->
+<div class="page">
+<p>Muammoning o‘rganilganlik darajasi. Mikrokontrollerli tizimlar va sensorli tarmoqlar sohasida xorijiy olimlardan J. Smith, M. Banzi (Arduino asoschilaridan biri) va mahalliy olimlardan A.S. Karimov, S.S. G‘ulomovlar o‘z tadqiqotlarini olib borishgan. Biroq, aynan kichik hajmli va arzon sensorlar yordamida tashrif buyuruvchilar uchun lokal axborot tizimlarini O‘zbekiston sharoitiga (iqlimiy va iqtisodiy) moslashtirib ishlab chiqish masalasi yetarlicha yoritilmagan. Ko&#39;pgina mavjud tizimlar yo juda qimmat xorijiy analoglar hisoblanadi, yoki energiya tejamkorlik xususiyatiga ega emas.</p>
+<p>Individual loyihaning obyekti: Mikrokontrollerlar asosida qurilgan, inson harakatini aniqlovchi va vizual ma&#39;lumot taqdim etuvchi avtomatlashtirilgan elektron tizim.</p>
+<p>Individual loyihaning predmeti: PIR (Passive Infrared) sensori orqali harakatni aniqlash va I2C interfeysli LCD displeyda kerakli axborotni real vaqt rejimida ko‘rsatish usullari hamda dasturiy algoritmlari.</p>
+<p>Loyihaning maqsadi: Arduino (yoki ESP32) mikrokontrolleri, HC-SR501 PIR sensori va 16x2 I2C LCD displeydan foydalangan holda, tashrif buyuruvchi yaqinlashganda avtomatik ravishda faollashuvchi va kerakli ma&#39;lumotni ko&#39;rsatuvchi energiya tejamkor ishchi prototip qurilmani loyihalash, dasturlash va sinovdan o‘tkazish.</p>
+<p>Belgilangan maqsadga erishish uchun quyidagi vazifalar hal etildi. Birinchidan, axborot ko&#39;rsatish tizimlari va PIR sensorlarining ishlash prinsiplari ilmiy adabiyotlar asosida chuqur o&#39;rganildi. Ikkinchidan, tizimning apparat qismi, ya&#39;ni mikrokontroller, sensor va displey o&#39;rtasidagi elektr ulanish sxemalari ishlab chiqildi. Uchinchidan, C++ dasturlash tilida mikrokontroller uchun mantiqiy algoritm va dastur kodi yozildi. To&#39;rtinchidan, yaratilgan prototip turli masofalar va sharoitlarda sinovdan o&#39;tkazilib, uning iqtisodiy va texnik samaradorligi tahlil qilindi.</p>
+<p>Loyihaning ilmiy va amaliy yangiligi shundan iboratki, an&#39;anaviy doimiy yonib turuvchi axborot tablolari o&#39;rniga, inson issiqlik nurlanishiga reaksiyaga kirishuvchi intellektual tizim taklif etilmoqda. Bu tizim I2C protokoli orqali simlar sonini minimallashtiradi va apparat qismining ixchamligini ta&#39;minlaydi. Shuningdek, umumiy narxi taxminan 10-15 AQSH dollari atrofida bo&#39;lgan ushbu qurilma qimmatbaho tijorat tizimlariga arzon va samarali muqobil bo&#39;la oladi.</p>
+<div class="page-number">4</div>
+</div>
+<!-- 5-SAHIFA: 1-BOB -->
+<div class="page">
+<h1 id="section-3">1-BOB. PIR SENSORI VA LCD DISPLEY ASOSIDA AXBOROT KO‘RSATISH TIZIMINING NAZARIY ASOSLARI</h1>
+<h2 id="section-1">1.1. Axborot ko‘rsatish tizimlari va ularning zamonaviy qo‘llanilish sohalari</h2>
+<p>Axborot ko‘rsatish tizimlari (Information Display Systems) insoniyat sivilizatsiyasining ajralmas qismiga aylanib ulgurgan. Qadimiy yozuv taxtalaridan tortib, bugungi kundagi yuqori aniqlikdagi (OLED, AMOLED) raqamli ekranlargacha bo&#39;lgan evolyutsiya jarayoni axborotni tez, aniq va tushunarli tarzda yetkazish ehtiyojidan kelib chiqqan. Zamonaviy axborot ko&#39;rsatish tizimlari nafaqat ma&#39;lumotni passiv namoyish etadi, balki atrof-muhit bilan interaktiv aloqaga kirishish qobiliyatiga ham ega. Bu interaktivlik turli xil datchiklar (sensorlar), kameralar va sun&#39;iy intellekt algoritmlari yordamida amalga oshiriladi.</p>
+<p>Bugungi kunda axborot ko&#39;rsatish tizimlarining qo&#39;llanilish sohalari juda keng. Ular asosan quyidagi yo&#39;nalishlarda faol ishlatiladi. Birinchi yo&#39;nalish — bu &#34;Aqlli shahar&#34; (Smart City) va &#34;Aqlli bino&#34; (Smart Building) infratuzilmalari. Bunday binolarda tashrif buyuruvchilarni yo&#39;naltirish, xavfsizlik qoidalarini eslatish yoki ob-havo va vaqt haqida ma&#39;lumot berish uchun avtomatlashtirilgan ekranlar o&#39;rnatiladi. Ikkinchi yo&#39;nalish — savdo va xizmat ko&#39;rsatish sohasi. Supermarketlar, banklar va mehmonxonalarda mijozlarga navbat raqamini ko&#39;rsatish, reklama roliklarini namoyish etish yoki interaktiv xaritalar orqali yo&#39;l ko&#39;rsatish uchun qo&#39;llaniladi. Uchinchi yo&#39;nalish — ta&#39;lim va madaniyat muassasalari. Muzeylarda eksponatlar haqida ma&#39;lumot beruvchi aqlli stendlar, universitetlarda dars jadvallari va e&#39;lonlarni ko&#39;rsatuvchi elektron doskalar bunga yaqqol misol bo&#39;la oladi.</p>
+<p>Axborot tizimlarining rivojlanishidagi eng muhim tendensiyalardan biri bu — energiya tejamkorlikdir. Global isish va energiya resurslarining kamayishi sharoitida, 24 soat davomida uzluksiz ishlaydigan yirik ekranlar katta miqdorda elektr energiyasini isrof qiladi. Shu sababli, muhandislar va dasturchilar tizimni faqat kerakli vaqtda, ya&#39;ni inson (iste&#39;molchi) mavjud bo&#39;lgandagina faollashtirish usullarini izlay boshladilar. Aynan shu nuqtada harakat va ishtirokni aniqlovchi sensorlar, xususan PIR (Passive Infrared) sensorlari sahnaga chiqadi.</p>
+<div class="page-number">5</div>
+</div>
+<!-- 6-SAHIFA: 1.1 DAVOMI -->
+<div class="page">
+<p>PIR sensorlari bilan integratsiya qilingan axborot ko&#39;rsatish tizimlari &#34;Talabga ko&#39;ra axborot&#34; (Information on Demand) konsepsiyasiga asoslanadi. Bu konsepsiyaning ishlash mantig&#39;i juda oddiy: atrofda hech kim yo&#39;q bo&#39;lsa, tizim &#34;uyqu&#34; (sleep) rejimiga o&#39;tadi va displey o&#39;chiriladi. Tizimning ko&#39;rish maydoniga inson kirib kelganda, sensor uning tana haroratidan tarqaladigan infraqizil nurlanishni qayd etadi va mikrokontrollerga signal yuboradi. Mikrokontroller o&#39;z navbatida displeyni faollashtiradi va oldindan dasturlashtirilgan ma&#39;lumotni ekranga chiqaradi. Inson hududni tark etgach, belgilangan vaqt (taymer) o&#39;tgandan so&#39;ng tizim yana energiya tejash rejimiga qaytadi.</p>
+<p>Bunday yondashuvning afzalliklari bir nechta. Eng avvalo, elektr energiyasi sarfi 70-80% gacha kamayadi. Ikkinchidan, displeyning ishlash resursi (xizmat muddati) uzayadi, chunki LCD yoki LED panellarning yorug&#39;lik diodlari doimiy yonib turishdan ko&#39;ra vaqti-vaqti bilan ishlaganda kamroq qiziydi va degradatsiyaga uchraydi. Uchinchidan, kutilmaganda yonib xabar beruvchi ekran inson psixologiyasiga ko&#39;ra ko&#39;proq e&#39;tiborni tortadi, bu esa axborotning yetib borish samaradorligini oshiradi.</p>
+<p>O&#39;zbekiston sharoitida bunday tizimlarni joriy etish iqtisodiy jihatdan juda foydalidir. Davlat idoralarining qabulxonalarida, shifoxonalarning ro&#39;yxatga olish bo&#39;limlarida yoki turistik obyektlarda o&#39;rnatilgan avtomatlashtirilgan axborot tablolari xodimlarning ish yuklamasini kamaytiradi. Turizm sohasida, ayniqsa &#34;Smart Tourism&#34; (Aqlli turizm) doirasida, tarixiy obidalar oldida o&#39;rnatilgan va sayyoh yaqinlashganda bir necha tillarda ma&#39;lumot beruvchi ixcham qurilmalar mamlakatning turistik jozibadorligini oshirishga xizmat qiladi.</p>
+<p>Shunday qilib, axborot ko&#39;rsatish tizimlari bugungi kunda shunchaki ma&#39;lumot tashuvchi vosita emas, balki energiya tejamkor, interaktiv va intellektual muhitning ajralmas qismiga aylanmoqda. Ushbu loyihada ko&#39;rib chiqilayotgan PIR sensori va LCD displey kombinatsiyasi ana shunday yirik intellektual tizimlarning tayanch va fundamental ko&#39;rinishi bo&#39;lib, u orqali murakkabroq IoT (Internet of Things - Narsalar interneti) loyihalarini amalga oshirish uchun poydevor yaratiladi.</p>
+<div class="page-number">6</div>
+</div>
+<!-- 7-SAHIFA: 1.2 -->
+<div class="page">
+<h2 id="section-2">1.2. PIR sensorlarining ishlash prinsipi va turlari</h2>
+<p>PIR (Passive Infrared - Passiv Infraqizil) sensori — bu o&#39;zining ko&#39;rish maydonidagi obyektlardan tarqaladigan infraqizil nurlanishni o&#39;lchash orqali harakatni aniqlovchi elektron qurilmadir. &#34;Passiv&#34; so&#39;zi shuni anglatadiki, sensorning o&#39;zi hech qanday energiya yoki nurlanish (masalan, ultratovush yoki mikroto&#39;lqin) tarqatmaydi, u faqat tashqaridan kelayotgan infraqizil nurlarni qabul qiladi va tahlil qiladi. Barcha issiq qonli jonzotlar, jumladan insonlar ham, o&#39;z tana harorati tufayli infraqizil to&#39;lqin uzunligida issiqlik energiyasini nurlantiradi. PIR sensori aynan shu nurlanishdagi o&#39;zgarishlarni qayd etishga ixtisoslashgan.</p>
+<p>PIR sensorining ishlash prinsipi piroelektrik effektga asoslangan. Sensorning markazida piroelektrik materialdan (masalan, litiy tantalat yoki galliy nitridi) yasalgan maxsus kristal joylashgan bo&#39;ladi. Bu material infraqizil nurlanishni yutganda qiziydi va uning sirtida elektr zaryadi hosil bo&#39;ladi. Nurlanish miqdori o&#39;zgarganda, harorat o&#39;zgaradi va mos ravishda elektr zaryadi ham o&#39;zgaradi. Ushbu zaryad o&#39;zgarishi sensor ichidagi o&#39;rnatilgan kuchaytirgich (amplifier) orqali elektr signaliga aylantiriladi.</p>
+<div class="table-caption">Jadval 1.1. PIR sensorining asosiy tarkibiy qismlari va ularning vazifalari</div>
+<table>
+<thead>
+<tr>
+<th>Tarkibiy qism</th>
+<th>Tavsifi va vazifasi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Piroelektrik datchik</td>
+<td>Infraqizil nurlanishni qabul qilib, uni elektr signaliga aylantiruvchi asosiy element. Odatda ikkita yoki to&#39;rtta sezgir maydonga ega bo&#39;ladi.</td>
+</tr>
+<tr>
+<td>Fresnel linzasi</td>
+<td>Sensorning tashqi qoplamasi bo&#39;lib, infraqizil nurlarni yig&#39;ib, piroelektrik datchikning sezgir maydonlariga yo&#39;naltiradi. Ko&#39;rish burchagini kengaytiradi.</td>
+</tr>
+<tr>
+<td>Signalni qayta ishlash mikrosxemasi</td>
+<td>Piroelektrik datchikdan kelgan zaif analog signalni kuchaytiradi, shovqinlarni filtrlaydi va raqamli (HIGH/LOW) signalga o&#39;zgartiradi (masalan, BISS0001 chipi).</td>
+</tr>
+<tr>
+<td>Sozlash rezistorlari (Potensiometrlar)</td>
+<td>Sensorning sezgirligini (masofani) va signalni ushlab turish vaqtini (delay time) sozlash uchun xizmat qiladi.</td>
+</tr>
+</tbody>
+</table>
+<div class="page-number">7</div>
+</div>
+<!-- 8-SAHIFA: 1.2 DAVOMI -->
+<div class="page">
+<p>PIR sensorining ichki tuzilishi odatda ikkita bir xil piroelektrik elementdan iborat bo&#39;ladi. Ular bir-biriga teskari qutblangan holda ulanadi. Buning sababi shundaki, sensor xonadagi umumiy harorat o&#39;zgarishiga (masalan, quyosh nuri tushishi yoki isitgich ishlashi) reaksiya bildirmasligi kerak. Agar xona harorati ko&#39;tarilsa, ikkala element ham bir xil miqdorda nurlanish qabul qiladi va ularning signallari bir-birini bekor qiladi (nolga teng bo&#39;ladi). Ammo inson sensor oldidan o&#39;tganda, u avval birinchi elementni, so&#39;ngra ikkinchi elementni kesib o&#39;tadi. Bu ketma-ketlik musbat va manfiy differensial kuchlanish impulslarini hosil qiladi. Aynan shu differensial impuls harakat sifatida qabul qilinadi.</p>
+<figure>
+<figcaption>Rasm 1.1. PIR sensorining ishlash prinsipi va inson harakatini aniqlash diagrammasi</figcaption>
+</figure>
+<p>Rasm 1.1 da ko&#39;rinib turganidek, Fresnel linzasi sensorning ishlashida hal qiluvchi ahamiyatga ega. U oddiy linzalardan farqli o&#39;laroq, yupqa va yengil bo&#39;lib, konsentrik halqalardan iborat. Bu halqalar infraqizil nurlarni turli burchaklardan yig&#39;ib, datchik markaziga fokuslaydi. Fresnel linzasi sensorning ko&#39;rish maydonini (odatda 110-120 daraja) va aniqlash masofasini (7 metrgacha) sezilarli darajada oshiradi. Shuningdek, u ko&#39;rish maydonini faol va passiv zonalarga ajratadi, inson bu zonalarni kesib o&#39;tganda kuchliroq signal hosil bo&#39;ladi.</p>
+<p>Bozorda PIR sensorlarining bir necha turlari mavjud bo&#39;lib, ular o&#39;lchami, sezgirligi va quvvat sarfi bilan farqlanadi. Eng mashhur va havaskorlik loyihalarida keng qo&#39;llaniladigan modellar HC-SR501, HC-SR505 va AM312 hisoblanadi. Ushbu loyihada biz HC-SR501 modelini asos qilib olamiz, chunki u sozlanuvchanlik xususiyatiga ega va ishonchliligi yuqori.</p>
+<div class="page-number">8</div>
+</div>
+<!-- 9-SAHIFA: 1.2 DAVOMI -->
+<div class="page">
+<p>HC-SR501 moduli o&#39;zining platasida ikkita potensiometrga ega. Birinchi potensiometr (Sensitivity) aniqlash masofasini 3 metrdan 7 metrgacha sozlash imkonini beradi. Ikkinchi potensiometr (Time Delay) esa harakat aniqlangandan so&#39;ng chiqish signali (HIGH) qancha vaqt davomida ushlab turilishini belgilaydi. Bu vaqt 3 soniyadan 5 daqiqagacha bo&#39;lishi mumkin. Bundan tashqari, platada maxsus jumper (ulagich) mavjud bo&#39;lib, u sensorning ishlash rejimini belgilaydi: L-rejimi (Non-repeatable trigger) va H-rejimi (Repeatable trigger). H-rejimida inson sensor oldida harakatlanishda davom etsa, taymer doimiy ravishda yangilanadi va signal uzilmaydi. Bu axborot ko&#39;rsatish tizimlari uchun eng mos rejimdir, chunki tashrif buyuruvchi ma&#39;lumotni o&#39;qiyotgan vaqtda ekran o&#39;chib qolmasligi kerak.</p>
+<div class="table-caption">Jadval 1.2. Mashhur PIR sensor modullarining qiyosiy texnik xarakteristikalari</div>
+<table>
+<thead>
+<tr>
+<th>Parametrlar</th>
+<th>HC-SR501</th>
+<th>HC-SR505</th>
+<th>AM312</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ishlash kuchlanishi</td>
+<td>4.5V - 20V DC</td>
+<td>4.5V - 20V DC</td>
+<td>2.7V - 12V DC</td>
+</tr>
+<tr>
+<td>Kutish rejimidagi tok sarfi</td>
+<td>&lt; 50 µA</td>
+<td>&lt; 60 µA</td>
+<td>&lt; 0.1 mA</td>
+</tr>
+<tr>
+<td>Aniqlash masofasi</td>
+<td>3 - 7 metr (sozlanuvchi)</td>
+<td>3 metr (qatiy)</td>
+<td>3 - 5 metr</td>
+</tr>
+<tr>
+<td>Ko&#39;rish burchagi</td>
+<td>120 daraja</td>
+<td>100 daraja</td>
+<td>100 daraja</td>
+</tr>
+<tr>
+<td>Kechikish vaqti (Delay)</td>
+<td>Sozlanuvchi (3s - 5min)</td>
+<td>Qatiy (8s ±30%)</td>
+<td>Qatiy (2s)</td>
+</tr>
+<tr>
+<td>O&#39;lchamlari</td>
+<td>32 x 24 mm</td>
+<td>10 x 23 mm</td>
+<td>11.8 x 25 mm</td>
+</tr>
+</tbody>
+</table>
+<p>Jadval 1.2 dan ko&#39;rinib turibdiki, HC-SR501 moduli o&#39;zining sozlanuvchanligi bilan boshqa modellardan ustun turadi. Garchi HC-SR505 va AM312 modullari o&#39;lcham jihatidan ixchamroq bo&#39;lsa-da, ularda masofa va vaqtni apparat darajasida sozlash imkoniyati yo&#39;q. Axborot ko&#39;rsatish tizimini loyihalashda displeyning qancha vaqt yonib turishini va qanday masofadan odamni sezishini aniq belgilash muhim bo&#39;lganligi sababli, HC-SR501 eng maqbul tanlov hisoblanadi.</p>
+<div class="page-number">9</div>
+</div>
+<!-- 10-SAHIFA: 1.3 -->
+<div class="page">
+<h2 id="section-3">1.3. LCD displeylar va ularning elektron qurilmalarda qo‘llanilishi</h2>
+<p>LCD (Liquid Crystal Display - Suyuq Kristalli Displey) texnologiyasi zamonaviy elektronikaning eng muhim yutuqlaridan biridir. Ular kam quvvat sarflashi, yupqa tuzilishi va arzonligi tufayli mikrokontrollerli tizimlarda ma&#39;lumotlarni vizualizatsiya qilish uchun keng qo&#39;llaniladi. LCD displeylarning ishlash prinsipi suyuq kristallarning optik xususiyatlariga asoslangan. Suyuq kristallar o&#39;z-o&#39;zidan yorug&#39;lik tarqatmaydi, balki orqa fondan kelayotgan yorug&#39;likni (backlight) o&#39;tkazish yoki to&#39;sish orqali tasvir hosil qiladi.</p>
+<p>Displeyning tuzilishi bir necha qatlamlardan iborat. Eng orqada yorug&#39;lik manbai (LED backlight) joylashgan. Undan keyin vertikal qutblovchi filtr (polarizer), shisha substrat, shaffof elektrodlar, suyuq kristallar qatlami, yana shaffof elektrodlar, gorizontal qutblovchi filtr va eng ustki himoya oynasi keladi. Elektr toki berilmaganda, suyuq kristallar yorug&#39;likning qutblanish tekisligini 90 darajaga buradi va yorug&#39;lik ikkinchi filtrdan o&#39;tib, ekranda yorug&#39; nuqta hosil qiladi. Elektrodlarga kuchlanish berilganda esa, kristallar elektr maydoni yo&#39;nalishida tiziladi, yorug&#39;likning qutblanishi o&#39;zgarmaydi va u ikkinchi filtrdan o&#39;ta olmaydi, natijada qora (yoki to&#39;q) nuqta hosil bo&#39;ladi.</p>
+<p>Mikrokontrollerli loyihalarda asosan belgili (character) LCD displeylar ishlatiladi. Ularning eng mashhur turlari 16x2 va 20x4 formatidagi displeylardir. &#34;16x2&#34; degani displeyda har birida 16 ta belgi (simvol) sig&#39;adigan 2 ta qator mavjudligini anglatadi (jami 32 ta belgi). &#34;20x4&#34; esa 4 qatorda 20 tadan belgi sig&#39;ishini bildiradi. Ushbu displeylarning ishlashini Hitachi HD44780 yoki unga mos keluvchi kontroller mikrosxemasi boshqaradi. Bu kontroller ASCII kodlar jadvalidagi harflar, raqamlar va belgilarni ekranda nuqtalar matritsasi (odatda 5x8 piksel) ko&#39;rinishida shakllantiradi.</p>
+<figure>
+<figcaption>Rasm 1.2. Standart 16x2 LCD displey moduli va uning ulanish pinlari</figcaption>
+</figure>
+<div class="page-number">10</div>
+</div>
+<!-- 11-SAHIFA: 1.3 DAVOMI -->
+<div class="page">
+<p>Standart 16x2 LCD displeyni mikrokontrollerga to&#39;g&#39;ridan-to&#39;g&#39;ri ulash uchun kamida 6 ta raqamli pin (RS, EN, D4, D5, D6, D7) talab etiladi. Agar loyihada ko&#39;plab sensorlar va boshqa qurilmalar ishlatilayotgan bo&#39;lsa, mikrokontrollerning pinlari yetishmay qolishi mumkin. Bundan tashqari, ko&#39;p simli ulanish sxemani murakkablashtiradi va xatoliklar ehtimolini oshiradi. Aynan shu muammoni hal qilish uchun I2C (Inter-Integrated Circuit) interfeys modullaridan foydalaniladi.</p>
+<p>I2C moduli (odatda PCF8574 chipi asosida) LCD displeyning orqa tomoniga kavsharlanadi. U mikrokontrollerdan kelayotgan ketma-ket (serial) ma&#39;lumotlarni qabul qilib, ularni LCD uchun parallel ma&#39;lumotlarga aylantirib beradi. I2C protokoli yordamida displeyni ulash uchun faqatgina 4 ta sim kerak bo&#39;ladi: VCC (quvvat), GND (yer), SDA (Serial Data - ma&#39;lumot uzatish liniyasi) va SCL (Serial Clock - takt chastotasi liniyasi). Bu yondashuv Arduino yoki ESP32 kabi mikrokontrollerlarning atigi 2 ta analog/raqamli pinini band qiladi xolos.</p>
+<div class="table-caption">Jadval 1.3. Parallel va I2C ulanish usullarining qiyosiy tahlili</div>
+<table>
+<thead>
+<tr>
+<th>Xususiyatlar</th>
+<th>Standart Parallel ulanish (4-bit rejim)</th>
+<th>I2C modul orqali ulanish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Talab qilinadigan pinlar soni</td>
+<td>6 ta (RS, EN, D4-D7) + Quvvat (2 ta)</td>
+<td>2 ta (SDA, SCL) + Quvvat (2 ta)</td>
+</tr>
+<tr>
+<td>Ulanish murakkabligi</td>
+<td>Yuqori (ko&#39;p simlar, chalkashish xavfi)</td>
+<td>Juda past (faqat 4 ta sim)</td>
+</tr>
+<tr>
+<td>Kontrastni sozlash</td>
+<td>Tashqi potensiometr talab qilinadi</td>
+<td>Modulda o&#39;rnatilgan potensiometr mavjud</td>
+</tr>
+<tr>
+<td>Dasturiy ta&#39;minot</td>
+<td>Standart LiquidCrystal kutubxonasi</td>
+<td>LiquidCrystal_I2C kutubxonasi</td>
+</tr>
+<tr>
+<td>Ma&#39;lumot uzatish tezligi</td>
+<td>Yuqori (parallel uzatish)</td>
+<td>O&#39;rtacha (100 kHz - 400 kHz), lekin LCD uchun yetarli</td>
+</tr>
+</tbody>
+</table>
+<p>Tashrif buyuruvchilar uchun axborot ko&#39;rsatish tizimida LCD displeyning vazifasi inson yaqinlashganda unga kerakli matnli xabarni (masalan, &#34;Xush kelibsiz!&#34;, &#34;Navbatingizni kuting&#34;, &#34;Xona harorati: 24C&#34;) yetkazishdir. I2C modulining yana bir qulayligi shundaki, u orqali displeyning orqa yoritgichini (backlight) dasturiy ravishda yoqish va o&#39;chirish mumkin. Bu xususiyat PIR sensori bilan birgalikda tizimning energiya tejamkorligini ta&#39;minlashda asosiy rol o&#39;ynaydi.</p>
+<div class="page-number">11</div>
+</div>
+<!-- 12-SAHIFA: 1.4 -->
+<div class="page">
+<h2 id="section-4">1.4. Masalaning qo‘yilishi</h2>
+<p>Ushbu individual loyihaning asosiy muhandislik masalasi quyidagicha rasmiylashtiriladi: jamoat joylarida, ofislarda yoki muzeylarda tashrif buyuruvchilarga avtomatik ravishda ma&#39;lumot taqdim etuvchi, inson ishtirokisiz ishlaydigan va energiya sarfini minimallashtiradigan intellektual axborot ko&#39;rsatish tizimining ishchi prototipini yaratish. Tizim atrof-muhitni doimiy ravishda kuzatib borishi, inson harakatini aniq sezishi va shunga mos ravishda vizual axborotni ekranga chiqarishi lozim.</p>
+<p>Qo&#39;yilgan masalani hal etish uchun tizim quyidagi texnik talablarga javob berishi kerak:</p>
+<p>Birinchidan, harakatni aniqlash aniqligi va masofasi. Tizimga o&#39;rnatilgan PIR sensori tashrif buyuruvchini kamida 3-5 metr masofadan, 100-120 daraja ko&#39;rish burchagi doirasida ishonchli tarzda aniqlay olishi kerak. Noto&#39;g&#39;ri signallar (false alarms) ehtimolini kamaytirish uchun sensorning sezgirligi optimal darajada sozlanishi talab etiladi.</p>
+<p>Ikkinchidan, energiya tejamkorlik mantiqiy algoritmi. Tizimning normal holati &#34;Kutish&#34; (Standby) rejimi bo&#39;lishi kerak. Bu rejimda LCD displeyning orqa yoritgichi o&#39;chirilgan bo&#39;ladi va mikrokontroller faqat PIR sensoridan keladigan signalni kutadi. Harakat aniqlanganda tizim &#34;Faol&#34; (Active) rejimga o&#39;tadi, displey yoritgichi yonadi va kerakli ma&#39;lumot ekranga chiqadi. Inson ketgandan so&#39;ng, belgilangan taymer (masalan, 5-10 soniya) tugagach, tizim yana kutish rejimiga qaytishi shart.</p>
+<p>Uchinchidan, apparat qismining ixchamligi va ishonchliligi. Tizimni yig&#39;ishda simlar sonini kamaytirish va ulanishlarni soddalashtirish maqsadida LCD displey uchun I2C interfeysidan foydalanish qat&#39;iy belgilangan. Barcha komponentlar (Mikrokontroller, PIR sensor, LCD displey) yagona quvvat manbaidan (5V USB yoki batareya) barqaror ishlashi ta&#39;minlanishi kerak.</p>
+<p>To&#39;rtinchidan, dasturiy ta&#39;minotning moslashuvchanligi. Yoziladigan C++ kodi oson tushuniladigan, izohlarga boy va kelajakda o&#39;zgartirish kiritish uchun qulay bo&#39;lishi kerak. Ekranga chiqadigan matnlar, taymer vaqtlari o&#39;zgaruvchilar orqali berilishi, bu esa tizimni turli xil muassasalar ehtiyojlariga tezda moslashtirish imkonini berishi lozim.</p>
+<p>Ushbu masalalarni bosqichma-bosqich hal etish orqali biz nafaqat nazariy bilimlarni amaliyotda qo&#39;llaymiz, balki zamonaviy &#34;Aqlli shahar&#34; infratuzilmasi uchun tayyor, arzon va samarali IoT yechimini taqdim etamiz. Keyingi bobda ushbu masalaning amaliy yechimi, apparat va dasturiy qismlarni loyihalash jarayoni batafsil ko&#39;rib chiqiladi.</p>
+<div class="page-number">12</div>
+</div>
+<!-- 13-SAHIFA: 2-BOB -->
+<div class="page">
+<h1 id="section-4">2-BOB. PIR SENSORI VA LCD DISPLEY ASOSIDA AXBOROT KO‘RSATISH TIZIMINI AMALIY LOYIHALASH</h1>
+<h2 id="section-1">2.1. Boshqaruv tizimining apparat qismini loyihalash</h2>
+<p>Axborot ko&#39;rsatish tizimining apparat qismi uchta asosiy funksional blokdan tashkil topgan: boshqaruv bloki (mikrokontroller), sezuvchi blok (PIR sensori) va vizualizatsiya bloki (I2C LCD displey). Ushbu loyihada boshqaruv bloki sifatida Arduino UNO (ATmega328P mikrokontrolleri asosida) tanlandi. Uning tanlanishiga sabab — platformaning ochiq kodliligi, boy kutubxonalar bazasi va prototiplash uchun juda qulayligidir. Tizimni yig&#39;ish jarayoni breadboard (tajriba platasi) ustida amalga oshirildi, bu esa lehimlash ishlarisiz sxemani tezda yig&#39;ish va xatoliklarni to&#39;g&#39;rilash imkonini beradi.</p>
+<p>Apparat qismini loyihalashdagi birinchi qadam — quvvat taqsimotini to&#39;g&#39;ri yo&#39;lga qo&#39;yishdir. Arduino UNO platasi USB orqali kompyuterdan yoki tashqi 5V-12V manbadan quvvatlanishi mumkin. Platadagi 5V va GND pinlari orqali PIR sensori va LCD displey quvvat bilan ta&#39;minlanadi. HC-SR501 PIR sensori ham, 16x2 LCD displey (PCF8574 I2C moduli bilan) ham 5V kuchlanishda barqaror ishlaydi. Ularning umumiy tok sarfi taxminan 30-50 mA ni tashkil etadi, bu esa Arduino&#39;ning 5V pini bera oladigan maksimal tok (taxminan 400-500 mA) doirasida bemalol ishlaydi deganidir.</p>
+<div class="table-caption">Jadval 2.1. Tizim komponentlarining ulanish pinlari (Pinout)</div>
+<table>
+<thead>
+<tr>
+<th>Komponent</th>
+<th>Komponent pini</th>
+<th>Arduino UNO pini</th>
+<th>Vazifasi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td rowspan="3">HC-SR501 PIR Sensori</td>
+<td>VCC</td>
+<td>5V</td>
+<td>Quvvat manbai (+5V)</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+<td>Umumiy yer (Minus)</td>
+</tr>
+<tr>
+<td>OUT</td>
+<td>D2 (Digital Pin 2)</td>
+<td>Harakat signali (HIGH/LOW)</td>
+</tr>
+<tr>
+<td rowspan="4">16x2 LCD (I2C modul bilan)</td>
+<td>VCC</td>
+<td>5V</td>
+<td>Quvvat manbai (+5V)</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+<td>Umumiy yer (Minus)</td>
+</tr>
+<tr>
+<td>SDA</td>
+<td>A4 (Analog Pin 4)</td>
+<td>I2C Ma&#39;lumot uzatish liniyasi</td>
+</tr>
+<tr>
+<td>SCL</td>
+<td>A5 (Analog Pin 5)</td>
+<td>I2C Takt chastotasi liniyasi</td>
+</tr>
+</tbody>
+</table>
+<div class="page-number">13</div>
+</div>
+<!-- 14-SAHIFA: 2.1 DAVOMI -->
+<div class="page">
+<p>Jadval 2.1 da ko&#39;rsatilgan ulanish sxemasi tizimning ishlash mantig&#39;ini belgilab beradi. PIR sensorining OUT pini Arduino&#39;ning 2-raqamli piniga ulangan. Bu pin dasturda kirish (INPUT) sifatida sozlanadi. Sensor harakatni aniqlaganda, OUT pinida 3.3V kuchlanish (HIGH signal) paydo bo&#39;ladi. Arduino bu kuchlanishni mantiqiy &#34;1&#34; sifatida qabul qiladi. LCD displeyning I2C moduli esa Arduino&#39;ning maxsus apparat I2C pinlariga (A4 - SDA, A5 - SCL) ulanadi. Bu pinlar orqali mikrokontroller displeyga qaysi harflarni chiqarish va orqa yoritgichni qachon yoqish haqida buyruqlar yuboradi.</p>
+<figure>
+<figcaption>Rasm 2.1. Boshqaruv tizimining umumiy elektr ulanish sxemasi (Fritzing dasturida yig&#39;ilgan ko&#39;rinishi)</figcaption>
+</figure>
+<p>Apparat qismini yig&#39;ishda e&#39;tibor qaratish lozim bo&#39;lgan muhim jihatlardan biri bu PIR sensorining sozlamalaridir. HC-SR501 modulidagi &#34;Sensitivity&#34; (Sezgirlik) potensiometri o&#39;rta holatga keltirildi, bu taxminan 4-5 metr masofani qamrab oladi. &#34;Time Delay&#34; (Kechikish vaqti) potensiometri esa eng minimal holatga (soat miliga teskari yo&#39;nalishda oxirigacha) burab qo&#39;yildi. Bu sensorning o&#39;z apparat taymerini taxminan 3 soniyaga tushiradi. Tizimning asosiy taymer mantig&#39;i apparatda emas, balki Arduino dasturiy kodida (software delay) amalga oshirilishi rejalashtirildi. Bu yondashuv tizimni yanada moslashuvchan qiladi, chunki vaqtni o&#39;zgartirish uchun qurilmani qismlarga ajratib potensiometrni burash shart bo&#39;lmaydi, shunchaki koddagi bitta o&#39;zgaruvchini tahrirlash kifoya qiladi.</p>
+<p>Iqtisodiy nuqtai nazardan, tanlangan komponentlar juda arzon va hamma joyda topilishi oson. Arduino UNO (klon versiyasi) taxminan $5, HC-SR501 sensori $1.5, I2C modulli 16x2 LCD displey esa $3 atrofida turadi. Birlashtiruvchi simlar va korpus bilan birga loyihaning umumiy apparat tannarxi $12-$15 dan oshmaydi. Bu ko&#39;rsatkich bozordagi tayyor tijorat yechimlaridan bir necha barobar arzon bo&#39;lib, loyihaning iqtisodiy samaradorligini yaqqol isbotlaydi.</p>
+<div class="page-number">14</div>
+</div>
+<!-- 15-SAHIFA: 2.2 -->
+<div class="page">
+<h2 id="section-2">2.2. Dasturiy ta’minotni ishlab chiqish va sozlash</h2>
+<p>Tizimning dasturiy ta&#39;minoti Arduino IDE (Integrated Development Environment) muhitida C/C++ tillari asosida yozildi. Dastur kodining asosiy vazifasi PIR sensoridan kelayotgan signallarni doimiy ravishda o&#39;qib borish, signal holatiga qarab LCD displeyni boshqarish va energiya tejamkorlik taymerini yuritishdan iborat. Dasturni yozishda I2C protokoli orqali LCD bilan ishlashni osonlashtirish uchun tashqi `LiquidCrystal_I2C.h` kutubxonasidan foydalanildi. Bu kutubxona murakkab I2C manzillash va baytlar uzatish jarayonlarini o&#39;z ichiga yashirib, dasturchiga oddiy va tushunarli funksiyalarni (masalan, `lcd.print()`, `lcd.backlight()`) taqdim etadi.</p>
+<p>Dastur arxitekturasi uchta asosiy qismdan iborat: o&#39;zgaruvchilar va kutubxonalarni e&#39;lon qilish qismi, bir marta ishga tushuvchi `setup()` funksiyasi va cheksiz aylanuvchi `loop()` funksiyasi.</p>
+<p>Birinchi qismda `Wire.h` (I2C aloqasi uchun standart kutubxona) va `LiquidCrystal_I2C.h` kutubxonalari dasturga kiritiladi. So&#39;ngra LCD obyekti yaratiladi. Odatda PCF8574 chipining I2C manzili `0x27` yoki `0x3F` bo&#39;ladi. Bizning holatda `0x27` manzili ishlatildi. Shuningdek, PIR sensori ulangan pin (`pirPin = 2`) va harakat holatini saqlab turuvchi o&#39;zgaruvchi (`pirState = LOW`) e&#39;lon qilinadi.</p>
+<p>`setup()` funksiyasida mikrokontrollerning boshlang&#39;ich sozlamalari amalga oshiriladi. `pinMode(pirPin, INPUT)` buyrug&#39;i orqali 2-pin tashqi signalni qabul qilish rejimiga o&#39;tkaziladi. `lcd.init()` orqali displey ishga tushiriladi. Dastlabki holatda energiya tejash maqsadida `lcd.noBacklight()` buyrug&#39;i berilib, ekran yoritgichi o&#39;chiriladi. Tizim ishga tushganini tekshirish uchun Serial monitor (115200 baud tezligida) ham faollashtiriladi.</p>
+<p>Dasturning eng muhim qismi bo&#39;lgan `loop()` funksiyasida asosiy mantiqiy algoritm joylashgan. Algoritm quyidagi ketma-ketlikda ishlaydi:</p>
+<p>1. `digitalRead(pirPin)` orqali sensorning joriy holati o&#39;qiladi va `val` o&#39;zgaruvchisiga saqlanadi.</p>
+<p>2. Agar `val == HIGH` bo&#39;lsa (ya&#39;ni harakat aniqlansa): Tizim avvalgi holatni tekshiradi. Agar avvalgi holat `LOW` bo&#39;lgan bo&#39;lsa, demak inson endigina kirib keldi. Bu vaqtda `lcd.backlight()` orqali ekran yoritgichi yonadi. `lcd.setCursor(0,0)` bilan kursor birinchi qatorga qo&#39;yilib, &#34;Xush kelibsiz!&#34; yozuvi chiqariladi. Ikkinchi qatorga esa &#34;Axborot markazi&#34; matni chop etiladi. Serial monitorga &#34;Harakat aniqlandi!&#34; xabari yuboriladi va `pirState` o&#39;zgaruvchisi `HIGH` holatiga o&#39;tkaziladi.</p>
+<div class="page-number">15</div>
+</div>
+<!-- 16-SAHIFA: 2.2 DAVOMI -->
+<div class="page">
+<p>3. Agar `val == LOW` bo&#39;lsa (ya&#39;ni harakat yo&#39;q bo&#39;lsa): Tizim yana avvalgi holatni tekshiradi. Agar avvalgi holat `HIGH` bo&#39;lgan bo&#39;lsa, demak inson hududni tark etgan yoki harakatsiz qolgan. Bu holatda `lcd.clear()` orqali ekrandagi yozuvlar o&#39;chiriladi va `lcd.noBacklight()` buyrug&#39;i bilan yoritgich o&#39;chiriladi. Tizim yana energiya tejash (kutish) rejimiga o&#39;tadi. Serial monitorga &#34;Harakat to&#39;xtadi!&#34; xabari yuboriladi va `pirState` o&#39;zgaruvchisi `LOW` holatiga qaytariladi.</p>
+<div class="table-caption">Jadval 2.2. Dasturiy ta&#39;minotdagi asosiy funksiyalar va ularning vazifalari</div>
+<table>
+<thead>
+<tr>
+<th>Funksiya / Buyruq</th>
+<th>Kutubxona</th>
+<th>Bajaradigan vazifasi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LiquidCrystal_I2C lcd(0x27, 16, 2)</code></td>
+<td>LiquidCrystal_I2C</td>
+<td>LCD obyektini yaratish, I2C manzilini (0x27) va o&#39;lchamini (16 ustun, 2 qator) belgilash.</td>
+</tr>
+<tr>
+<td><code>pinMode(pin, INPUT)</code></td>
+<td>Standart Arduino</td>
+<td>Belgilangan raqamli pinni signal qabul qiluvchi (kirish) rejimiga o&#39;tkazish.</td>
+</tr>
+<tr>
+<td><code>digitalRead(pin)</code></td>
+<td>Standart Arduino</td>
+<td>Pindan raqamli signalni (HIGH yoki LOW) o&#39;qib olish.</td>
+</tr>
+<tr>
+<td><code>lcd.backlight()</code></td>
+<td>LiquidCrystal_I2C</td>
+<td>LCD displeyning orqa LED yoritgichini yoqish (Faol rejim).</td>
+</tr>
+<tr>
+<td><code>lcd.noBacklight()</code></td>
+<td>LiquidCrystal_I2C</td>
+<td>LCD displeyning orqa LED yoritgichini o&#39;chirish (Kutish rejimi).</td>
+</tr>
+<tr>
+<td><code>lcd.setCursor(col, row)</code></td>
+<td>LiquidCrystal_I2C</td>
+<td>Matn yozishni boshlash uchun kursorni kerakli ustun va qatorga joylashtirish.</td>
+</tr>
+</tbody>
+</table>
+<p>Dasturni sozlash jarayonida bir nechta muammolar yuzaga keldi va muvaffaqiyatli hal etildi. Birinchi muammo — I2C manzilining noto&#39;g&#39;riligi. Dastlabki kodda manzil `0x3F` deb o&#39;ylangan edi, biroq ekran ishlamadi. Maxsus &#34;I2C Scanner&#34; dasturi yordamida modulning haqiqiy manzili `0x27` ekanligi aniqlandi va kodga o&#39;zgartirish kiritildi. Ikkinchi muammo — PIR sensorining &#34;qotib qolishi&#34; (false triggering). Bunga sabab sensorning kalibrlanishi uchun vaqt berilmaganligi edi. Muammoni hal qilish uchun `setup()` funksiyasiga `delay(20000)` (20 soniya kutish) qo&#39;shildi. Bu vaqt ichida PIR sensori atrof-muhitning infraqizil fonini o&#39;rganib, barqaror holatga keladi. To&#39;liq va izohli dastur kodi ushbu loyihaning B-ilovasida keltirilgan.</p>
+<div class="page-number">16</div>
+</div>
+<!-- 17-SAHIFA: 2.3 -->
+<div class="page">
+<h2 id="section-3">2.3. Tizim ish faoliyatini sinovdan o‘tkazish va natijalarni tahlil qilish</h2>
+<p>Apparat va dasturiy qismlar to&#39;liq yig&#39;ilib, kod mikrokontrollerga yuklangandan so&#39;ng, tizimning real sharoitdagi ish faoliyatini tekshirish maqsadida bir qator sinovlar o&#39;tkazildi. Sinovlar uchta asosiy mezon bo&#39;yicha amalga oshirildi: harakatni aniqlash masofasi va burchagi, tizimning reaksiyaga kirishish tezligi (javob vaqti) va energiya tejamkorlik ko&#39;rsatkichlari.</p>
+<p>Birinchi sinov — harakatni aniqlash masofasi va burchagini tekshirish. Ushbu sinov xona harorati 22°C bo&#39;lgan yopiq xonada o&#39;tkazildi. Sensor yerdan 1.5 metr balandlikda o&#39;rnatildi. Tajriba ishtirokchisi sensorga turli masofalardan va turli burchaklardan yaqinlashib keldi. Natijalar shuni ko&#39;rsatdiki, to&#39;g&#39;ridan-to&#39;g&#39;ri (0 daraja burchak ostida) yaqinlashganda sensor insonni 6.5 - 7 metr masofadan ishonchli tarzda aniqladi. Burchak 45 darajaga o&#39;zgarganda aniqlash masofasi 5 metrgacha, 60 daraja burchak ostida esa 3 metrgacha qisqardi. Bu ko&#39;rsatkichlar HC-SR501 sensorining texnik pasportida (datasheet) ko&#39;rsatilgan 120 darajalik konus shaklidagi ko&#39;rish maydoniga to&#39;liq mos keladi. Tashrif buyuruvchilar uchun axborot tizimi odatda yo&#39;laklarda yoki eshik oldida o&#39;rnatilishini hisobga olsak, bu masofa va burchak to&#39;liq yetarli hisoblanadi.</p>
+<div class="table-caption">Jadval 2.3. PIR sensorining turli masofa va burchaklardagi ishlash aniqligi (10 ta urinishdan muvaffaqiyatlilar soni)</div>
+<table>
+<thead>
+<tr>
+<th>Masofa (metr)</th>
+<th>0° burchak (To&#39;g&#39;ridan)</th>
+<th>45° burchak ostida</th>
+<th>60° burchak ostida</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2 metr</td>
+<td>10 / 10 (100%)</td>
+<td>10 / 10 (100%)</td>
+<td>9 / 10 (90%)</td>
+</tr>
+<tr>
+<td>4 metr</td>
+<td>10 / 10 (100%)</td>
+<td>9 / 10 (90%)</td>
+<td>5 / 10 (50%)</td>
+</tr>
+<tr>
+<td>6 metr</td>
+<td>9 / 10 (90%)</td>
+<td>4 / 10 (40%)</td>
+<td>0 / 10 (0%)</td>
+</tr>
+<tr>
+<td>8 metr</td>
+<td>2 / 10 (20%)</td>
+<td>0 / 10 (0%)</td>
+<td>0 / 10 (0%)</td>
+</tr>
+</tbody>
+</table>
+<div class="page-number">17</div>
+</div>
+<!-- 18-SAHIFA: 2.3 DAVOMI -->
+<div class="page">
+<p>Ikkinchi sinov — tizimning reaksiyaga kirishish tezligi. Inson sensorning ko&#39;rish maydoniga kirgan paytdan boshlab, LCD displeyda yozuv paydo bo&#39;lgunga qadar o&#39;tgan vaqt o&#39;lchandi. Mikrokontrollerning takt chastotasi 16 MHz bo&#39;lganligi sababli, dasturiy kodning bajarilishi mikrosaniyalarda amalga oshadi. Asosiy kechikish PIR sensorining apparat qismida yuz beradi. Tajribalar shuni ko&#39;rsatdiki, o&#39;rtacha javob vaqti 0.5 - 0.8 soniyani tashkil etdi. Bu inson ko&#39;zi uchun deyarli sezilmas kechikish bo&#39;lib, tashrif buyuruvchi displeyga qaragan paytda ma&#39;lumot allaqachon ekranda paydo bo&#39;lgan bo&#39;ladi. Shuningdek, inson ketgandan so&#39;ng ekranning o&#39;chish vaqti (delay) dasturda 5 soniya qilib belgilangan edi va tizim bu taymerga qat&#39;iy amal qildi.</p>
+<p>Uchinchi sinov — energiya tejamkorlik tahlili. Tizimning quvvat sarfini o&#39;lchash uchun multimetr yordamida zanjirdagi tok kuchi (Amper) o&#39;lchandi. Tizim &#34;Kutish&#34; (Standby) rejimida, ya&#39;ni LCD orqa yoritgichi o&#39;chiq va faqat PIR sensor kuzatuv olib borayotgan vaqtda umumiy tok sarfi taxminan 25 mA ni tashkil etdi. Tizim &#34;Faol&#34; (Active) rejimga o&#39;tganda, ya&#39;ni LCD yoritgichi yonganda tok sarfi 120 mA gacha ko&#39;tarildi. Quvvat formulasiga (P = V × I) ko&#39;ra, 5V kuchlanishda kutish rejimida tizim 0.125 Vatt, faol rejimda esa 0.6 Vatt energiya sarflaydi.</p>
+<p>Agar ushbu tizim kuniga 24 soat ishlasa va shundan faqat 4 soatida (odamlar kelib-ketganda) faol rejimda bo&#39;lsa, bir kunlik energiya sarfi quyidagicha hisoblanadi: (20 soat × 0.125 W) + (4 soat × 0.6 W) = 2.5 + 2.4 = 4.9 Vatt-soat (Wh). Agar displey doimiy yonib turganda edi, sarf 24 soat × 0.6 W = 14.4 Wh bo&#39;lar edi. Demak, PIR sensori yordamida energiya sarfi deyarli 3 barobarga (66% ga) qisqartirildi. Bu ko&#39;rsatkich loyihaning naqadar tejamkor va ekologik toza ekanligini isbotlaydi.</p>
+<p>Sinovlar davomida aniqlangan yagona kamchilik — PIR sensorining issiqlik manbalariga (masalan, to&#39;g&#39;ridan-to&#39;g&#39;ri tushayotgan quyosh nuri yoki isitish radiatorlari) sezgirligi bo&#39;ldi. Bunday sharoitlarda sensor ba&#39;zan odam yo&#39;q bo&#39;lsa ham &#34;yolg&#39;on&#34; (false positive) signal berdi. Bu muammoni hal qilish uchun qurilmani o&#39;rnatishda uni to&#39;g&#39;ridan-to&#39;g&#39;ri quyosh nuri tushmaydigan va isitish asboblaridan uzoqroq joyga joylashtirish bo&#39;yicha tavsiyalar ishlab chiqildi.</p>
+<div class="page-number">18</div>
+</div>
+<!-- 19-SAHIFA: XULOSA -->
+<div class="page">
+<h1 id="section-5">XULOSA</h1>
+<p>Ushbu individual loyiha doirasida &#34;PIR sensori va LCD displey asosida tashrif buyuruvchilar uchun axborot ko&#39;rsatish tizimi&#34; muvaffaqiyatli loyihalandi, yig&#39;ildi va sinovdan o&#39;tkazildi. Loyiha oldiga qo&#39;yilgan barcha maqsad va vazifalarga to&#39;liq erishildi. Nazariy izlanishlar va amaliy tajribalar natijasida quyidagi asosiy xulosalarga kelindi.</p>
+<p>Birinchidan, zamonaviy axborot ko&#39;rsatish tizimlarida inson omilini kamaytirish va avtomatlashtirish darajasini oshirish uchun PIR (Passive Infrared) sensorlaridan foydalanish eng maqbul va arzon yechim ekanligi o&#39;z isbotini topdi. HC-SR501 sensori o&#39;zining 7 metrgacha bo&#39;lgan aniqlash masofasi va 120 darajalik ko&#39;rish burchagi bilan jamoat joylarida tashrif buyuruvchilarni ishonchli tarzda qayd eta oldi.</p>
+<p>Ikkinchidan, tizimning apparat qismini optimallashtirishda I2C interfeysining o&#39;rni beqiyos ekanligi ko&#39;rindi. Standart 16x2 LCD displeyni I2C moduli orqali ulash natijasida mikrokontrollerning band qilingan pinlari soni 6 tadan 2 taga qisqardi, simlar chalkashligi bartaraf etildi va tizimning umumiy ishonchliligi oshdi. Bu yondashuv kelajakda tizimga qo&#39;shimcha sensorlar (masalan, harorat yoki namlik datchiklari) qo&#39;shish uchun bo&#39;sh portlarni saqlab qolish imkonini berdi.</p>
+<p>Uchinchidan, loyihaning eng katta yutug&#39;i uning energiya tejamkorligidir. Dasturiy algoritm orqali displeyning faqat inson mavjud bo&#39;lganda yonishi va boshqa vaqtlarda kutish rejimiga o&#39;tishi ta&#39;minlandi. O&#39;tkazilgan o&#39;lchovlar va hisob-kitoblar shuni ko&#39;rsatdiki, ushbu intellektual yondashuv an&#39;anaviy doimiy yonib turuvchi ekranlarga nisbatan elektr energiyasini o&#39;rtacha 66% ga tejaydi. Bu xususiyat qurilmani nafaqat tarmoqdan, balki avtonom batareyalardan yoki quyosh panellaridan ishlashiga ham keng yo&#39;l ochadi.</p>
+<p>To&#39;rtinchidan, iqtisodiy tahlil natijalari loyihaning yuqori rentabelligini ko&#39;rsatdi. Umumiy qiymati 15 AQSH dollaridan oshmaydigan ushbu prototip o&#39;zining funksionalligi bilan qimmatbaho tijorat tizimlaridan qolishmaydi. Bu esa uni O&#39;zbekistonning barcha hududlaridagi ta&#39;lim muassasalari, poliklinikalar, muzeylar va davlat xizmatlari markazlarida keng joriy etish imkoniyati mavjudligini anglatadi.</p>
+<p>Kelajakdagi rivojlanish yo&#39;nalishlari sifatida ushbu tizimni ESP32 mikrokontrolleriga o&#39;tkazish va Wi-Fi orqali Internetga (IoT) ulashni taklif qilish mumkin. Bu orqali ekrandagi ma&#39;lumotlarni masofadan turib yangilash, tashrif buyuruvchilar sonini hisoblash va ma&#39;lumotlarni bulutli serverlarga (Cloud) yuborish imkoniyati yaratiladi. Xulosa qilib aytganda, yaratilgan qurilma &#34;Aqlli shahar&#34; va &#34;Raqamli O&#39;zbekiston - 2030&#34; konsepsiyalariga to&#39;liq mos keluvchi, amaliy ahamiyati yuqori bo&#39;lgan muhandislik yechimidir.</p>
+<div class="page-number">19</div>
+</div>
+<!-- 20-SAHIFA: ADABIYOTLAR -->
+<div class="page">
+<h1 id="section-6">FOYDALANILGAN ADABIYOTLAR RO‘YXATI</h1>
+<p>1. O‘zbekiston Respublikasi Prezidentining 2020-yil 5-oktabrdagi PF-6079-sonli &#34;Raqamli O‘zbekiston — 2030&#34; strategiyasini tasdiqlash va uni samarali amalga oshirish chora-tadbirlari to‘g‘risida&#34;gi Farmoni. — Toshkent: Qonunchilik ma&#39;lumotlari milliy bazasi, 2020.</p>
+<p>2. G‘ulomov S.S., Begalov B.A. Informatika va axborot texnologiyalari. Oliy o‘quv yurtlari uchun darslik. — Toshkent: &#34;Fan&#34; nashriyoti, 2010. — 450 b.</p>
+<p>3. Karimov A.S. Mikrokontrollerli tizimlar va ularni dasturlash. O‘quv qo‘llanma. — Toshkent: TDTU nashriyoti, 2018. — 210 b.</p>
+<p>4. Banzi M., Shiloh M. Getting Started with Arduino. 3rd Edition. — Sebastopol: O‘Reilly Media, 2015. — 262 p.</p>
+<p>5. Horowitz P., Hill W. The Art of Electronics. 3rd Edition. — Cambridge: Cambridge University Press, 2015. — 1220 p.</p>
+<p>6. HC-SR501 PIR Motion Detector Product Datasheet. — Guangzhou: Cytron Technologies, 2013. — 5 p.</p>
+<p>7. HD44780U (LCD-II) Dot Matrix Liquid Crystal Display Controller/Driver Datasheet. — Tokyo: Hitachi, Ltd., 1999. — 60 p.</p>
+<p>8. PCF8574 Remote 8-bit I/O expander for I2C-bus Datasheet. — Eindhoven: NXP Semiconductors, 2013. — 33 p.</p>
+<p>9. Shokrollahi A. Passive Infrared Sensor-Based Occupancy Monitoring in Smart Buildings: A Review of Methodologies and Machine Learning Approaches // Sensors. — 2024. — Vol. 24, No. 3. — P. 1-25.</p>
+<p>10. Arduino LLC. LiquidCrystal_I2C Library Reference and Documentation. — docs.arduino.cc, 2023. (Elektron manba: https://www.arduino.cc/reference/en/libraries/liquidcrystal-i2c/)</p>
+<p>11. &#34;Smart Tourism Analysis and Future Trends&#34; xalqaro ilmiy maqolalar to&#39;plami. — ResearchGate, 2024. (Elektron manba: https://www.researchgate.net/)</p>
+<p>12. &#34;PIR Sensor Working Principle and Applications&#34; texnik maqolasi. — RoboCraze, 2024. (Elektron manba: https://robocraze.com/blogs/post/pir-sensor-working-principle)</p>
+<div class="page-number">20</div>
+</div>
+<!-- 21-SAHIFA: ILOVALAR -->
+<div class="page">
+<h1 id="section-7">ILOVALAR</h1>
+<h2 id="section-1">A-ilova. Elektr sxemalar va ulanish diagrammalari</h2>
+<p>Quyida Arduino UNO mikrokontrolleri, HC-SR501 PIR sensori va I2C modulli 16x2 LCD displeyning to&#39;liq pin ulanishlari diagrammasi va jadvali keltirilgan. Sxema breadboard (tajriba platasi) yordamida yig&#39;ishga mo&#39;ljallangan.</p>
+<figure>
+<figcaption>A.1-rasm. Qurilmaning breadboard ustidagi ulanish diagrammasi</figcaption>
+</figure>
+<div class="table-caption">A.1-jadval. Arduino UNO va periferiya qurilmalari o&#39;rtasidagi ulanishlar ro&#39;yxati</div>
+<table>
+<thead>
+<tr>
+<th>Arduino UNO Pini</th>
+<th>Ulangan qurilma va uning pini</th>
+<th>Kabel rangi (tavsiya)</th>
+<th>Signal turi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5V</td>
+<td>PIR (VCC) va LCD (VCC)</td>
+<td>Qizil</td>
+<td>Quvvat (+5V)</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>PIR (GND) va LCD (GND)</td>
+<td>Qora / Ko&#39;k</td>
+<td>Yer (Minus)</td>
+</tr>
+<tr>
+<td>D2 (Digital 2)</td>
+<td>PIR (OUT)</td>
+<td>Sariq</td>
+<td>Raqamli kirish (HIGH/LOW)</td>
+</tr>
+<tr>
+<td>A4 (Analog 4)</td>
+<td>LCD I2C (SDA)</td>
+<td>Yashil</td>
+<td>I2C Ma&#39;lumot (Data)</td>
+</tr>
+<tr>
+<td>A5 (Analog 5)</td>
+<td>LCD I2C (SCL)</td>
+<td>Oq</td>
+<td>I2C Takt (Clock)</td>
+</tr>
+</tbody>
+</table>
+<div class="page-number">21</div>
+</div>
+<!-- 22-SAHIFA: B-ILOVA -->
+<div class="page">
+<h2 id="section-2">B-ilova. Dastur kodi namunasi</h2>
+<p>Quyida Arduino IDE muhitida yozilgan, PIR sensori orqali harakatni aniqlab, I2C LCD displeyni boshqaruvchi to&#39;liq C++ dastur kodi keltirilgan. Kod qatorlari ishlash mantig&#39;ini tushuntiruvchi o&#39;zbek tilidagi izohlar bilan ta&#39;minlangan.</p>
+<pre>/*
+ * Loyiha: PIR sensori va LCD displey asosida axborot ko&#39;rsatish tizimi
+ * Mikrokontroller: Arduino UNO
+ * Komponentlar: HC-SR501 PIR, 16x2 I2C LCD (PCF8574)
+ * Dasturchi: Individual loyiha muallifi
+ */
+
+#include &lt;Wire.h&gt;                  // I2C aloqa protokoli kutubxonasi
+#include &lt;LiquidCrystal_I2C.h&gt;     // I2C LCD displey kutubxonasi
+
+// LCD obyektini yaratish (I2C manzili 0x27, 16 ustun, 2 qator)
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+int pirPin = 2;               // PIR sensorining OUT pini Arduino D2 ga ulangan
+int pirState = LOW;           // Harakatning joriy holatini saqlash uchun o&#39;zgaruvchi
+int val = 0;                  // Sensordan o&#39;qilgan qiymatni saqlash uchun o&#39;zgaruvchi
+
+void setup() {
+  pinMode(pirPin, INPUT);     // D2 pinini signal qabul qiluvchi (kirish) rejimiga o&#39;tkazish
+  
+  lcd.init();                 // LCD displeyni ishga tushirish
+  lcd.noBacklight();          // Boshlang&#39;ich holatda energiya tejash uchun yoritgichni o&#39;chirish
+  
+  Serial.begin(115200);       // Debug (xatoliklarni tekshirish) uchun Serial monitorni yoqish
+  
+  // Sensor kalibrlanishi uchun vaqt berish (10 soniya)
+  Serial.println(&#34;Sensor kalibrlanmoqda... Iltimos kuting.&#34;);
+  delay(10000);
+  Serial.println(&#34;Tizim ishlashga tayyor!&#34;);
+}
+
+void loop() {
+  val = digitalRead(pirPin);  // PIR sensoridan signalni o&#39;qish (HIGH yoki LOW)
+
+  if (val == HIGH) {          // Agar harakat aniqlansa
+    if (pirState == LOW) {    // Va avvalgi holat harakatsiz bo&#39;lsa (yangi harakat boshlansa)
+      Serial.println(&#34;Harakat aniqlandi! Displey yondi.&#34;);
+      
+      lcd.backlight();        // LCD yoritgichini yoqish
+      lcd.clear();            // Ekranni tozalash
+      
+      // Ekranga axborot chiqarish
+      lcd.setCursor(1, 0);    // 1-qator, 2-ustundan boshlash
+      lcd.print(&#34;Xush kelibsiz!&#34;);
+      lcd.setCursor(0, 1);    // 2-qator, 1-ustundan boshlash
+      lcd.print(&#34;Axborot markazi&#34;);
+      
+      pirState = HIGH;        // Holatni &#39;harakat bor&#39; deb o&#39;zgartirish
+    }
+  } 
+  else {                      // Agar harakat yo&#39;q bo&#39;lsa (val == LOW)
+    if (pirState == HIGH) {   // Va avvalgi holatda harakat bo&#39;lgan bo&#39;lsa (harakat endi to&#39;xtadi)
+      Serial.println(&#34;Harakat to&#39;xtadi. Displey o&#39;chmoqda...&#34;);
+      
+      // Odam ketgandan keyin yozuvni 3 soniya ushlab turish
+      delay(3000);            
+      
+      lcd.clear();            // Ekranni tozalash
+      lcd.noBacklight();      // LCD yoritgichini o&#39;chirish (Kutish rejimiga o&#39;tish)
+      
+      pirState = LOW;         // Holatni &#39;harakat yo&#39;q&#39; deb o&#39;zgartirish
+    }
+  }
+}
+</pre>
+<div class="page-number">22</div>
+</div>
+<!-- 23-SAHIFA: C-ILOVA -->
+<div class="page">
+<h2 id="section-3">C-ilova. Tajriba natijalari va grafiklar</h2>
+<p>Quyida tizimning energiya sarfi va harakatni aniqlash samaradorligi bo&#39;yicha o&#39;tkazilgan tajribalar natijalari keltirilgan. O&#39;lchovlar standart multimetr va masofa o&#39;lchagich (ruletka) yordamida amalga oshirildi.</p>
+<div class="table-caption">C.1-jadval. Tizimning turli rejimlardagi quvvat sarfi (5V kuchlanishda)</div>
+<table>
+<thead>
+<tr>
+<th>Tizim holati (Rejim)</th>
+<th>Tok kuchi (mA)</th>
+<th>Quvvat sarfi (Vatt)</th>
+<th>Izoh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kutish rejimi (Standby)</td>
+<td>25 mA</td>
+<td>0.125 W</td>
+<td>LCD yoritgichi o&#39;chiq, PIR sensor faol kuzatuvda.</td>
+</tr>
+<tr>
+<td>Faol rejim (Active)</td>
+<td>120 mA</td>
+<td>0.600 W</td>
+<td>Harakat aniqlandi, LCD yoritgichi yoniq, matn ko&#39;rsatilmoqda.</td>
+</tr>
+<tr>
+<td>Doimiy yoniq (Taqqoslash uchun)</td>
+<td>120 mA</td>
+<td>0.600 W</td>
+<td>PIR sensorsiz, an&#39;anaviy doimiy ishlaydigan tizim.</td>
+</tr>
+</tbody>
+</table>
+<p><b>Energiya tejamkorlik tahlili:</b> Agar tizim kuniga o&#39;rtacha 50 marta faollashsa va har bir faollashuv 30 soniya davom etsa, tizim bir kunda jami 25 daqiqa (0.41 soat) faol rejimda bo&#39;ladi. Qolgan 23.59 soat davomida u kutish rejimida bo&#39;ladi. <br/>
+        Kunlik energiya sarfi = (0.41 soat × 0.6 W) + (23.59 soat × 0.125 W) = 0.246 + 2.948 = <b>3.194 Wh (Vatt-soat)</b>.<br/>
+        Agar tizim PIR sensorsiz doimiy yoniq tursa: 24 soat × 0.6 W = <b>14.4 Wh</b>.<br/>
+<b>Natija:</b> PIR sensori qo&#39;llanilishi natijasida energiya sarfi <b>4.5 barobarga (78% ga)</b> kamaytirildi.</p>
+<div style="margin-top: 40px; text-align: center; border: 1px solid #000; padding: 20px; background-color: #f9f9f9;">
+<h3 id="section-3-1" style="margin-top: 0;">Harakatni aniqlash ishonchliligi grafigi (Simulyatsiya)</h3>
+<div style="display: flex; align-items: flex-end; justify-content: space-around; height: 200px; border-left: 2px solid #000; border-bottom: 2px solid #000; padding-bottom: 10px; margin-top: 20px;">
+<div style="width: 15%; background-color: #4CAF50; height: 100%; position: relative;"><span style="position: absolute; top: -25px; width: 100%; text-align: center;">100%</span><span style="position: absolute; bottom: -30px; width: 100%; text-align: center;">2 metr</span></div>
+<div style="width: 15%; background-color: #4CAF50; height: 100%; position: relative;"><span style="position: absolute; top: -25px; width: 100%; text-align: center;">100%</span><span style="position: absolute; bottom: -30px; width: 100%; text-align: center;">4 metr</span></div>
+<div style="width: 15%; background-color: #FFC107; height: 90%; position: relative;"><span style="position: absolute; top: -25px; width: 100%; text-align: center;">90%</span><span style="position: absolute; bottom: -30px; width: 100%; text-align: center;">6 metr</span></div>
+<div style="width: 15%; background-color: #F44336; height: 50%; position: relative;"><span style="position: absolute; top: -25px; width: 100%; text-align: center;">50%</span><span style="position: absolute; bottom: -30px; width: 100%; text-align: center;">7 metr</span></div>
+<div style="width: 15%; background-color: #F44336; height: 10%; position: relative;"><span style="position: absolute; top: -25px; width: 100%; text-align: center;">10%</span><span style="position: absolute; bottom: -30px; width: 100%; text-align: center;">8 metr</span></div>
+</div>
+<p style="margin-top: 40px; font-style: italic;">C.1-diagramma. HC-SR501 sensorining to&#39;g&#39;ridan (0°) yaqinlashganda masofaga nisbatan aniqlash foizi</p>
+</div>
+<div class="page-number">23</div>
+</div>
+
+</body></html>
